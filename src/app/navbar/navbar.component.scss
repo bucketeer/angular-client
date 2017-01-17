@@ -1,0 +1,55 @@
+.navbar {
+  padding: .5em;
+  div {
+    .navbar-header {
+      .navbar-brand {
+        float: left;
+        padding: .4em 1em;
+        line-height: 2em;
+        transition: .3s ease-in-out;
+        i {
+          font-size: 2em;
+        }
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+    .navbar-main-collapse {
+      .navbar-nav {
+        li {
+          cursor: pointer;
+        }
+        .pages {
+          &:hover {
+            background-color: transparent !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.search-bar {
+  padding-left: 1em;
+  input {
+    line-height: 3em;
+    margin-left: -1.5em;
+    padding-left: 2em;
+    padding-right: 1em;
+    width: 0;
+    background: transparent;
+    border: none;
+    border-bottom: transparent .01em solid;
+    color: gray;
+    transition: .3s ease-in-out;
+    &:focus {
+      outline: none;
+      width: 15em;
+      border-bottom: rgba(0, 0, 0, .1) .01em solid;
+    }
+  }
+  i {
+    font-size: 1.2em;
+  }
+}

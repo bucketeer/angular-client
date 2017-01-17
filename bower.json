@@ -1,0 +1,23 @@
+{
+    "name": "bucketeer",
+    "description": "",
+    "main": "",
+    "authors": [
+        "avarghese4790"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/bucketeer/angular-client",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "client/assets",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "bootstrap": "3.3.7",
+        "jquery": "3.1.1",
+        "font-awesome": "4.7.0"
+    }
+}

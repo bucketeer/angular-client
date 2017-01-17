@@ -1,0 +1,9 @@
+<div [@goalsListState]="_goalsListState" class="goals-container">
+	<ul class="goals-list">
+		<li *ngFor="let goal of _goals" class="goal" [@goalState]="_goalState">
+			<div>
+				{{ goal.name }}
+			</div>
+		</li>
+	</ul>
+</div>
