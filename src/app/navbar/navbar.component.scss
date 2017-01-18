@@ -1,5 +1,6 @@
 .navbar {
-  padding: .5em;
+  transition: .5s ease-in-out;
+  padding: 0;
   div {
     .navbar-header {
       .navbar-brand {
@@ -28,6 +29,12 @@
       }
     }
   }
+}
+
+.navbar-transparent {
+  background-color: transparent;
+  border-color: transparent;
+  padding: 1em;
 }
 
 .search-bar {

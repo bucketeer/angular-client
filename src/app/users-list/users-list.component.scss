@@ -1,9 +1,9 @@
-.goals-container {
-  .goals-header {
+.users-container {
+  .users-header {
     margin: 3em;
     text-align: center;
   }
-  .goals-list {
+  .users-list {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -12,7 +12,7 @@
     align-items: stretch;
     align-content: stretch;
     position: absolute;
-    .goal {
+    .user {
       background: grey;
       margin: 0.5em;
       align-self: stretch;
@@ -29,7 +29,7 @@
       //     height: 25em;
       // }
       cursor: pointer;    
-      .goal-container {
+      .user-container {
         // position: absolute;
         margin: 5em auto;
         .index {
@@ -44,7 +44,7 @@
 }
 
 @media (max-width: 768px) {
-  .goal {
+  .user {
     border-radius: 0 !important;
     margin: 0 !important;
   }

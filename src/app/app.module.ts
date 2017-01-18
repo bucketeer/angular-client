@@ -7,8 +7,12 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { GoalsListComponent } from './goals-list/goals-list.component';
+import { UsersListComponent } from './users-list/users-list.component';
+import { SignupComponent } from './signup/signup.component';
+import { SigninComponent } from './signin/signin.component';
 
 import { GoalsService } from './shared/services/goals.service';
+import { UsersService } from './shared/services/users.service';
 import { AppRoutes } from './app.routes';
 
 @NgModule({
@@ -21,10 +25,14 @@ import { AppRoutes } from './app.routes';
   declarations: [
     AppComponent,
     NavbarComponent,
-    GoalsListComponent
+    GoalsListComponent,
+    UsersListComponent,
+    SignupComponent,
+    SigninComponent
   ],
   providers: [
-    GoalsService
+    GoalsService,
+    UsersService
   ],
   bootstrap: [
     AppComponent
