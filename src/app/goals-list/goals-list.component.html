@@ -1,14 +1,14 @@
-<div [@goalsListState]="_goalsListState" class="goals-container">
+<div [@goalsListState]="goalsListState" class="goals-container">
   <div class="goals-header">
     <h1>Goals</h1>
-    <h4>Currently {{ _pageinateOptions.totalResults }} In Progress!</h4>
+    <h4>Currently {{ pageinateOptions.totalResults }} In Progress!</h4>
   </div>
   <ul class="goals-list">
-    <li *ngFor="let goal of _goals; let i = index" class="goal" [@goalState]="_goalState" (click)="remove(i)">
+    <li *ngFor="let goal of goals; let i = index" class="goal" [@goalState]="goalState" (click)="remove(i)">
       <div class="goal-container">
         <h1>{{ goal.name }}</h1>
-        <h6>{{ goal._id }}</h6>
-        <h4 class="index">{{ i+1 }}/{{ _pageinateOptions.totalResults }}</h4>
+        <h6>{{ goal.id }}</h6>
+        <h4 class="index">{{ i+1 }}/{{ pageinateOptions.totalResults }}</h4>
         <p>{{ goal.description }}</p>
         <div>{{ goal.location }}</div>
         <div *ngIf="goal.completed.status"> Completed on {{ goal.completed.date | date: longDate }}!</div>

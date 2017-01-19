@@ -12,7 +12,7 @@ import { AppConfig } from '../config/app.config';
 @Injectable()
 export class UsersService {
 
-    _currentUser:IUser = JSON.parse(localStorage.getItem("b_user") || '{}');
+    currentUser: IUser = JSON.parse(localStorage.getItem("b_user") || '{}');
 
     constructor(private _http: Http) { }
 
@@ -22,28 +22,40 @@ export class UsersService {
             .catch(this.handeError);
     }
 
-    signin(_user) {
-        _user.email = "525@email.com";
-        _user.password = "password";
-        return this._http.post(`${AppConfig.server}/api/users/signin`, { authenticate: true, user: _user }, Options)
+    signin(user) {
+        return this._http.post(`${AppConfig.server}/api/users/signin`, { authenticate: true, user: user }, Options)
             .map((res) => {
-                let _data = res.json()
-                if (_data.authenticated) {
-                    let _currentUser = _data.user;
-                    _currentUser.token = _data.token;
-                    localStorage.setItem("b_user", JSON.stringify(_currentUser || {}));
+                let data = res.json()
+                if (data.authenticated && data.success) {
+                    this.currentUser = data.user;
+                    this.currentUser.token = data.token;
+                    localStorage.setItem("b_user", JSON.stringify(this.currentUser || {}));
                 }
-                return _data;
+                return data;
+            })
+            .catch(this.handeError);
+    }
+
+    signup(user) {
+        return this._http.post(`${AppConfig.server}/api/users/signup`, { user: user }, Options)
+            .map((res) => {
+                let data = res.json()
+                if (data.success) {
+                    this.currentUser = data.user;
+                    this.currentUser.token = data.token;
+                    localStorage.setItem("b_user", JSON.stringify(this.currentUser || {}));
+                }
+                return data;
             })
             .catch(this.handeError);
     }
 
     signout() {
-        return this._http.post(`${AppConfig.server}/api/users/signout`, { }, Options)
+        return this._http.post(`${AppConfig.server}/api/users/signout`, {}, Options)
             .map((res) => {
-                let _data = res.json();
-                localStorage.removeItem("b_user")
-                return _data;
+                let data = res.json();
+                localStorage.removeItem("b_user");
+                return data;
             })
             .catch(this.handeError);
     }

@@ -1,6 +1,14 @@
 .signup-container {
+  max-width: 30em;
+  margin: auto;
+  padding: 1em;
   .signup-header {
     margin: 3em;
-    text-align: center;
+  }
+  form {
+    hr {
+      margin: .5em;
+      border-top: .01em solid rgba(0, 0, 0, .1);
+    }
   }
 }

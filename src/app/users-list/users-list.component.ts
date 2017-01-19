@@ -12,21 +12,21 @@ import { IUser } from '../shared/interfaces/user.interface';
   animations: UsersListAnimations
 })
 export class UsersListComponent implements OnInit, OnDestroy {
-  _usersListState: string = 'loading';
-  _userState: string = 'loading';
-  _users: IUser[] = [];
-  _pageinateOptions: any = {};
+  usersListState: string = 'loading';
+  userState: string = 'loading';
+  users: IUser[] = [];
+  pageinateOptions: any = {};
 
-  constructor(private _userService: UsersService) { }
+  constructor(private userService: UsersService) { }
 
   ngOnInit() {
     setTimeout(() => {
-      this._usersListState = 'loaded';
+      this.usersListState = 'loaded';
     }, 800);
-    this._userService.getUsers()
+    this.userService.getUsers()
       .subscribe((data) => {
-        this._users = data.users;
-        this._pageinateOptions = {
+        this.users = data.users;
+        this.pageinateOptions = {
           totalResults: data.totalResults,
           pageSize: data.pageSize,
           nextPage: data.nextPage,
@@ -36,6 +36,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
       });
   }
   ngOnDestroy() {
-    this._usersListState = 'destroyed';
+    this.usersListState = 'destroyed';
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs/Rx';
 
@@ -8,29 +9,53 @@ import { UsersService } from '../shared/services/users.service';
 import { IUser } from '../shared/interfaces/user.interface';
 
 @Component({
-  selector: 'signin',
+  selector: 'sign-in',
   templateUrl: 'signin.component.html',
   styleUrls: ['signin.component.scss'],
   animations: SigninAnimations
 })
 export class SigninComponent implements OnInit, OnDestroy {
-  _signinState: string = 'loading';
-  _user = {};
+  signinState: string = 'loading';
+  isSigningIn: boolean = false;
+  userForm: FormGroup;
+  signinError: String;
 
-  constructor(private _userService: UsersService, private _router: Router) { }
+  constructor(
+    private _userService: UsersService,
+    private router: Router,
+    private _formBuilder: FormBuilder) {
+    this.userForm = _formBuilder.group({
+      'email': [null, Validators.required],
+      'password': [null, Validators.required]
+    });
+  }
 
   ngOnInit() {
     setTimeout(() => {
-      this._signinState = 'loaded';
+      this.signinState = 'loaded';
     }, 800);
-    this._userService.signin(this._user)
-      .subscribe((data) => {
-        this._user = data.user;
-        this._router.navigate(['home']);
-        window.location.reload();
-      });
   }
+
   ngOnDestroy() {
-    this._signinState = 'destroyed';
+    this.signinState = 'destroyed';
+  }
+
+  submitForm(user: any): void {
+    this.isSigningIn = true
+    this._userService.signin(user)
+      .subscribe((data) => {
+        this.isSigningIn = false;
+        if (!data.success) {
+          this.signinError = data.errMsg;
+          return;
+        }
+        this.userForm.reset();
+        this.router.navigate(['home']);
+        window.location.reload();
+      },
+      (err) => {
+        this.isSigningIn = false;
+        this.signinError = err;
+      });
   }
 }

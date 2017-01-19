@@ -1,4 +1,4 @@
-<nav class="navbar _navbar-transparent navbar-default navbar-fixed-top" [@navState]="_navState">
+<nav class="navbar _navbar-transparent navbar-default navbar-fixed-top" [@navState]="navState">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-main-collapse">
@@ -13,7 +13,7 @@
       <ul class="nav navbar-nav navbar-left">
         <li class="search-bar">
           <i class="fa fa-search"></i>
-          <input type="text" placeholder="Search for goals" value="{{ _queryString }}">
+          <input type="text" placeholder="Search for goals" value="{{ queryString }}">
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -27,16 +27,23 @@
             <li><a routerLink="/users">Users</a></li>
             <li><a routerLink="/goals">Goals</a></li>
           </ul>
-        </li>
-        <li *ngIf="true">
-          <a routerLink="/signup">Sign Up</a>
-        </li>
-        <li *ngIf="true">
-          <a routerLink="/signin">Sign In</a>
-        </li>
-        <li *ngIf="true">
-          <a (click)="signout()">Sign Out</a>
-        </li>
+          </li>
+          <li *ngIf="!currentUser.email">
+            <a routerLink="/signup">Sign Up <i class="fa fa-fw fa-user-plus"></i></a>
+          </li>
+          <li *ngIf="!currentUser.email">
+            <a routerLink="/signin">Sign In <i class="fa fa-fw fa-sign-in"></i></a>
+          </li>
+          <li *ngIf="!!currentUser.email">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+              {{ currentUser.profile.username }} <i class="fa fa-fw fa-user-circle-o"></i>
+            </a>            
+            <ul class="dropdown-menu">             
+              <li><a routerLink="/user-profile">My Profile</a></li>
+              <li><a routerLink="/user-goals">My Goals</a></li>
+              <li><a (click)="signout()">Sign Out</a>
+            </ul>
+            </li>
       </ul>
     </div>
   </div>

@@ -1,14 +1,14 @@
-<div [@usersListState]="_usersListState" class="users-container">
+<div [@usersListState]="usersListState" class="users-container">
   <div class="users-header">
     <h1>Users</h1>
-    <h4>Currently we have {{ _pageinateOptions.totalResults }} users!</h4>
+    <h4>Currently we have {{ pageinateOptions.totalResults }} users!</h4>
   </div>
   <ul class="users-list">
-    <li *ngFor="let user of _users; let i = index" class="user" [@userState]="_userState" (click)="remove(i)">
+    <li *ngFor="let user of users; let i = index" class="user" [@userState]="userState" (click)="remove(i)">
       <div class="user-container">
         <h1>{{ user.profile.name }}</h1>
-        <h6>{{ user._id }}</h6>        
-        <h4 class="index">{{ i+1 }}/{{ _pageinateOptions.totalResults }}</h4>
+        <h6>{{ user.id }}</h6>        
+        <h4 class="index">{{ i+1 }}/{{ pageinateOptions.totalResults }}</h4>
         <div>Goals</div>
         <div *ngFor="let goal of user.goals">
           {{ goal }}

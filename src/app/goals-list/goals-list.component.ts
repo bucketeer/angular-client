@@ -12,21 +12,21 @@ import { IGoal } from '../shared/interfaces/goal.interface';
   animations: GoalsListAnimations
 })
 export class GoalsListComponent implements OnInit, OnDestroy {
-  _goalsListState: string = 'loading';
-  _goalState: string = 'loading';
-  _goals: IGoal[] = [];
-  _pageinateOptions: any = {};
+  goalsListState: string = 'loading';
+  goalState: string = 'loading';
+  goals: IGoal[] = [];
+  pageinateOptions: any = {};
 
   constructor(private _goalService: GoalsService) { }
 
   ngOnInit() {
     setTimeout(() => {
-      this._goalsListState = 'loaded';
+      this.goalsListState = 'loaded';
     }, 800);
     this._goalService.getGoals()
       .subscribe((data) => {
-        this._goals = data.goals;
-        this._pageinateOptions = {
+        this.goals = data.goals;
+        this.pageinateOptions = {
           totalResults: data.totalResults,
           pageSize: data.pageSize,
           nextPage: data.nextPage,
@@ -36,6 +36,6 @@ export class GoalsListComponent implements OnInit, OnDestroy {
       });
   }
   ngOnDestroy() {
-    this._goalsListState = 'destroyed';
+    this.goalsListState = 'destroyed';
   }
 }
