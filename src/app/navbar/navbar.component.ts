@@ -13,21 +13,21 @@ import { UsersService } from '../shared/services/users.service';
 export class NavbarComponent implements OnInit {
   navState: string = 'loading';
   showNavBg: boolean = true;
-  currentUser:any = {};
+  currentUser: any = {};
 
-  constructor(private _userService: UsersService, private router:Router) { }
+  constructor(private _userService: UsersService, private router: Router) { }
 
   ngOnInit() {
     setTimeout(() => {
       this.navState = 'loaded';
     }, 500);
-    this.currentUser = this._userService.currentUser;    
+    this.currentUser = this._userService.currentUser;
   }
 
-  signout() {    
+  signout() {
     this._userService.signout()
       .subscribe((data) => {
-        this.router.navigate(['home']);        
+        this.router.navigate(['home']);
         window.location.reload();
       });
   }

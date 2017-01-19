@@ -10,6 +10,7 @@ import { GoalsListComponent } from './goals-list/goals-list.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 import { GoalsService } from './shared/services/goals.service';
 import { UsersService } from './shared/services/users.service';
@@ -29,7 +30,8 @@ import { AppRoutes } from './app.routes';
     GoalsListComponent,
     UsersListComponent,
     SignupComponent,
-    SigninComponent
+    SigninComponent,
+    UserProfileComponent
   ],
   providers: [
     GoalsService,

@@ -6,6 +6,10 @@
     <h4 class="text-center">Profile</h4>
     <hr>
     <div class="form-group">
+      <label>Profile Image:</label>
+      <input class="form-control" type="text" placeholder="Name" [formControl]="userForm.controls['name']">
+    </div>
+    <div class="form-group">
       <label>Name:</label>
       <input class="form-control" type="text" placeholder="Name" [formControl]="userForm.controls['name']">
     </div>
@@ -15,7 +19,11 @@
     </div>
     <div class="form-group">
       <label>Gender:</label>
-      <input class="form-control" type="text" placeholder="Gender" [formControl]="userForm.controls['gender']">
+      <div>
+        <input type="radio" value="male" [formControl]="userForm.controls['gender']"> &nbsp;Male
+        &nbsp;&nbsp;&nbsp;
+        <input type="radio" value="female" [formControl]="userForm.controls['gender']"> &nbsp;Female
+      </div>
     </div>
     <div class="form-group">
       <label>Location:</label>
@@ -34,7 +42,7 @@
     </div>
     <div class="form-group">
       <label>Confirm Password:</label>
-      <input class="form-control" type="password" placeholder="Password" [formControl]="userForm.controls['passwordConfirm']">
+      <input class="form-control" type="password" placeholder="Confirm Password" [formControl]="userForm.controls['passwordConfirm']">
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-default" [disabled]="!userForm.valid || isSigningUp">Submit</button>
