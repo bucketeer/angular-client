@@ -18,7 +18,7 @@ export class SigninComponent implements OnInit, OnDestroy {
   signinState: string = 'loading';
   isSigningIn: boolean = false;
   userForm: FormGroup;
-  signinError: String;
+  signinErrors = [];
 
   constructor(
     private _userService: UsersService,
@@ -46,7 +46,7 @@ export class SigninComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         this.isSigningIn = false;
         if (!data.success) {
-          this.signinError = data.errMsg;
+          this.signinErrors.push(data.errMsg)
           return;
         }
         this.userForm.reset();
@@ -55,7 +55,7 @@ export class SigninComponent implements OnInit, OnDestroy {
       },
       (err) => {
         this.isSigningIn = false;
-        this.signinError = err;
+        this.signinErrors.push(err)
       });
   }
 }

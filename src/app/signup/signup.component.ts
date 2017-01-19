@@ -15,10 +15,10 @@ import { IUser } from '../shared/interfaces/user.interface';
   animations: SignupAnimations
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  signupState: string = 'loading';  
+  signupState: string = 'loading';
   isSigningUp: boolean = false;
   userForm: FormGroup;
-  signupError: String;
+  signupErrors = [];
 
   constructor(
     private _userService: UsersService,
@@ -31,7 +31,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       'location': [null, Validators.required],
       'email': [null, Validators.required],
       'password': [null, Validators.required],
-      'passwordConfirm': [null, Validators.required]            
+      'passwordConfirm': [null, Validators.required]
     })
   }
 
@@ -52,8 +52,18 @@ export class SignupComponent implements OnInit, OnDestroy {
       .subscribe((data) => {
         this.isSigningUp = false;
         if (!data.success) {
-          this.signupError = data.errMsg;
-          return;
+          if (data.isValidationError) {
+            let errors = JSON.parse(data.msg);
+            let errorKeys = Object.keys(errors);
+            for (let i = 0; i < errorKeys.length; i++) {
+              let field = errorKeys[i].split('.')[0];
+              this.signupErrors.push(`${field.charAt(0).toUpperCase()}${field.slice(1)}: ${errors[errorKeys[i]].message}`);
+            }
+            return;
+          } else {
+            this.signupErrors.push(data.errMsg)
+          }
+
         }
         this.userForm.reset();
         this.router.navigate(['home']);
@@ -61,7 +71,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       },
       (err) => {
         this.isSigningUp = false;
-        this.signupError = err;
+        this.signupErrors = [err];
       });
   }
 

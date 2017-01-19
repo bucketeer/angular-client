@@ -14,7 +14,7 @@
     <div class="form-group">
       <button type="submit" class="btn btn-default" [disabled]="!userForm.valid || isSigningIn">Submit</button>
     </div>
-    <div *ngIf="signinError" class="alert alert-danger">{{ signinError }}</div>
+    <div *ngFor="let error of signinErrors" class="alert alert-danger">{{ error }}</div>
   </form>
 </div>
 
