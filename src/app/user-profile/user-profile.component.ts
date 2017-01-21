@@ -8,6 +8,7 @@ import { UserProfileAnimations } from './user-profile.animations';
 import { UsersService } from '../shared/services/users.service';
 import { GoalsService } from '../shared/services/goals.service';
 import { IUser } from '../shared/interfaces/user.interface';
+import { IGoal } from '../shared/interfaces/goal.interface';
 
 @Component({
     selector: 'user-profile',
@@ -18,8 +19,9 @@ import { IUser } from '../shared/interfaces/user.interface';
 export class UserProfileComponent implements OnInit, OnDestroy {
     userProfileState: string = 'loading';
     currentUser: any = {};
-    userGoals:any = [];
-    
+    userGoals: any = [];
+    pageinateOptions: any = {};
+
     constructor(
         private _userService: UsersService,
         private _goalsService: GoalsService,
@@ -29,11 +31,41 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         setTimeout(() => {
             this.userProfileState = 'loaded';
         }, 800);
+
         this.currentUser = this._userService.currentUser;
-        console.log(JSON.stringify(this.currentUser ));
+        
+        this._userService.getUser(this.currentUser._id)
+            .subscribe((data) => {
+                if (!data.success) {
+                  console.error(data.errMsg);  
+                } 
+                this.currentUser = data.users[0];                    
+                this.getUserGoals();
+            });
     }
 
     ngOnDestroy() {
         this.userProfileState = 'destroyed';
+    }
+
+    getUserGoals() {
+        let user = this._userService.getCurrentUser();
+        
+        if (!(user && user.goals.length > 0)) {
+            return;
+        }
+
+        this._goalsService.getGoalsByIds(user.goals)
+            .subscribe((data) => {
+                console.log(JSON.stringify(data));                
+                this.userGoals = data.goals;
+                this.pageinateOptions = {
+                    totalResults: data.totalResults,
+                    pageSize: data.pageSize,
+                    nextPage: data.nextPage,
+                    previousPage: data.previousPage,
+                    page: data.page
+                }
+            });
     }
 }

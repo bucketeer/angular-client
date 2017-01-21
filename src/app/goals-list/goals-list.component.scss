@@ -21,8 +21,10 @@
       transition: transform .3s ease-in-out;
       color: white;
       text-shadow: 0 0 0.01em black;
+      border: none;
     }
     .goal {
+      border: 1px solid rgba(0, 0, 0, .1);
       margin: 0.5em;
       align-self: stretch;
       overflow: hidden;
@@ -38,6 +40,18 @@
       //     height: 25em;
       // }
       cursor: pointer;
+      .add-goal-btn {
+        font-size: 3em;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        padding: 0 0.3em;
+        color: inherit;
+        transition: .3s ease-in-out;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
       .goal-container {
         // position: absolute;
         margin: 5em auto;

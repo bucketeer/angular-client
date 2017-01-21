@@ -4,7 +4,7 @@ export interface IGoal {
     category: number,
     hashtags: any,
     location: string,
-    img: any,
+    media: any,
     completed: any,
     isPrivate: boolean
 }

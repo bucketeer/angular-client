@@ -8,10 +8,19 @@
     </div>
   </div>
   <div class="user-goals">
-    <ul class="user-goals-list">
-      <li class="user-goal">asdasd</li>
-      <li *ngFor="let userGoal of userGoals; let i = index" class="user-goal">
-        {{ userGoal }}
+    <div class="user-goals-header">
+      <h2>You have {{ userGoals.length ? userGoals.length : 'no'}} item(s) on your List</h2>
+    </div>
+    <ul class="user-goals-list">      
+      <li *ngFor="let goal of userGoals; let i = index" class="user-goal">
+        <div class="goal-container">
+          <h1>{{ goal.name }}</h1>
+          <h6>{{ goal.id }}</h6>
+          <h4 class="index">{{ i+1 }}/{{ pageinateOptions.totalResults }}</h4>
+          <p>{{ goal.description }}</p>
+          <div>{{ goal.location }}</div>
+          <div *ngIf="goal.completed.status"> Completed on {{ goal.completed.date | date: longDate }}!</div>
+        </div>
       </li>
     </ul>
   </div>

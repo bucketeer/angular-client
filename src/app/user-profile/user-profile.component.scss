@@ -17,7 +17,11 @@
     }
   }
   .user-goals {
-    margin-top: 3em;
+    margin: 3em 0;
+    text-align: center;
+    .user-goals-header {
+      padding: 0 0 3em 0;
+    }
     .user-goals-list {
       display: flex;
       flex-direction: row;
@@ -25,19 +29,38 @@
       justify-content: center;
       align-items: stretch;
       align-content: stretch;
+      .user-goal:nth-child(3n-2) {
+        background: url("http://i.imgur.com/m6SQFJQh.jpg");
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+        background-position: center center !important;
+        transition: transform .3s ease-in-out;
+        color: white;
+        text-shadow: 0 0 0.01em black;
+        border: none;
+      }
       .user-goal {
-        background: grey;
         margin: 0.5em;
+        cursor: pointer;
+        border: 1px solid rgba(0, 0, 0, .1);                  
         align-self: stretch;
         overflow: hidden;
         text-align: center;
         transition: .3s ease-in-out;
         position: relative;
         width: 100%;
-        max-width: 35em;
-        min-height: 25em;
+        max-width: 35em;        
         flex-grow: 1;
         border-radius: .2em;
+        .goal-container {
+          margin: 5em auto;
+          .index {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 0 .5em;
+          }
+        }
       }
     }
   }

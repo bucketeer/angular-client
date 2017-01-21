@@ -50,7 +50,7 @@ export class SigninComponent implements OnInit, OnDestroy {
           return;
         }
         this.userForm.reset();
-        this.router.navigate(['home']);
+        this.router.navigate(['user-profile']);
         window.location.reload();
       },
       (err) => {

@@ -16,9 +16,39 @@ export class UsersService {
 
     constructor(private _http: Http) { }
 
+    getCurrentUser() {
+        this.currentUser = JSON.parse(localStorage.getItem("b_user") || '{}');
+        return this.currentUser;
+    }
+    
     getUsers() {
         return this._http.get(`${AppConfig.server}/api/users/`, Options)
-            .map((res) => { return res.json() })
+            .map((res) => { 
+                return res.json(); 
+            })
+            .catch(this.handeError);
+    }
+
+    getUser(id) {
+        return this._http.get(`${AppConfig.server}/api/users?_id=${id}`, Options)
+            .map((res) => { 
+                let data = res.json();                 
+                
+                if(data.success){                    
+                    this.currentUser = data.users[0];
+                    localStorage.setItem("b_user", JSON.stringify(this.currentUser || {}));                    
+                } 
+                return data;               
+            })
+            .catch(this.handeError);
+    }
+
+    addUserGoalById(goalId) {
+        this.currentUser.goals.push(goalId);
+        return this._http.put(`${AppConfig.server}/api/users/${this.currentUser._id}`, { user: this.currentUser }, Options)
+            .map((res) => {
+                return res.json();
+            })
             .catch(this.handeError);
     }
 
@@ -26,6 +56,7 @@ export class UsersService {
         return this._http.post(`${AppConfig.server}/api/users/signin`, { authenticate: true, user: user }, Options)
             .map((res) => {
                 let data = res.json()
+                
                 if (data.authenticated && data.success) {
                     this.currentUser = data.user;
                     this.currentUser.token = data.token;
@@ -40,6 +71,7 @@ export class UsersService {
         return this._http.post(`${AppConfig.server}/api/users/signup`, { user: user }, Options)
             .map((res) => {
                 let data = res.json()
+               
                 if (data.success) {
                     this.currentUser = data.user;
                     this.currentUser.token = data.token;

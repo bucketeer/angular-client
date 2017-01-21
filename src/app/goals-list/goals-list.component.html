@@ -1,10 +1,13 @@
 <div [@goalsListState]="goalsListState" class="goals-container">
   <div class="goals-header">
-    <h1>Goals</h1>
+    <h1>Community Goals</h1>
     <h4>Currently {{ pageinateOptions.totalResults }} In Progress!</h4>
   </div>
   <ul class="goals-list">
-    <li *ngFor="let goal of goals; let i = index" class="goal" [@goalState]="goalState" (click)="remove(i)">
+    <li *ngFor="let goal of goals; let i = index" class="goal" [@goalState]="goalState">
+      <span class="add-goal-btn" (click)="addGoalToUser(goal)" *ngIf="_userService.currentUser._id">
+        <i class="fa fa-plus-circle"></i>
+      </span>
       <div class="goal-container">
         <h1>{{ goal.name }}</h1>
         <h6>{{ goal.id }}</h6>

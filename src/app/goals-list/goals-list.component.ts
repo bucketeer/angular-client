@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { GoalsListAnimations } from './goals-list.animations';
 import { GoalsService } from '../shared/services/goals.service';
+import { UsersService } from '../shared/services/users.service';
 import { IGoal } from '../shared/interfaces/goal.interface';
 
 @Component({
@@ -17,7 +18,9 @@ export class GoalsListComponent implements OnInit, OnDestroy {
   goals: IGoal[] = [];
   pageinateOptions: any = {};
 
-  constructor(private _goalService: GoalsService) { }
+  constructor(
+    private _goalService: GoalsService,
+    private _userService: UsersService) { }
 
   ngOnInit() {
     setTimeout(() => {
@@ -35,7 +38,26 @@ export class GoalsListComponent implements OnInit, OnDestroy {
         }
       });
   }
+
   ngOnDestroy() {
     this.goalsListState = 'destroyed';
+  }
+
+  addGoalToUser(goal) {
+    this._goalService.createGoal(goal)
+      .subscribe((data) => {
+        if (!data.success) {
+          console.error(data.errMsg);
+          return;
+        }
+        this._userService.addUserGoalById(data.goal._id)
+          .subscribe((data) => {            
+            if (!data.success) {
+              console.error(data.errMsg);
+              return;
+            }
+          });
+      });
+
   }
 }

@@ -31,7 +31,8 @@ export class SignupComponent implements OnInit, OnDestroy {
       'location': [null, Validators.required],
       'email': [null, Validators.required],
       'password': [null, Validators.required],
-      'passwordConfirm': [null, Validators.required]
+      'passwordConfirm': [null, Validators.required],
+      'profileImg': [null]
     })
   }
 
@@ -59,11 +60,10 @@ export class SignupComponent implements OnInit, OnDestroy {
               let field = errorKeys[i].split('.')[0];
               this.signupErrors.push(`${field.charAt(0).toUpperCase()}${field.slice(1)}: ${errors[errorKeys[i]].message}`);
             }
-            return;
           } else {
-            this.signupErrors.push(data.errMsg)
+            this.signupErrors.push(data.errMsg);
           }
-
+          return;
         }
         this.userForm.reset();
         this.router.navigate(['home']);
