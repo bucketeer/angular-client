@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { UserProfileAnimations } from './user-profile.animations';
 import { UsersService } from '../shared/services/users.service';
+import { GoalsService } from '../shared/services/goals.service';
 import { IUser } from '../shared/interfaces/user.interface';
 
 @Component({
@@ -17,9 +18,11 @@ import { IUser } from '../shared/interfaces/user.interface';
 export class UserProfileComponent implements OnInit, OnDestroy {
     userProfileState: string = 'loading';
     currentUser: any = {};
-
+    userGoals:any = [];
+    
     constructor(
         private _userService: UsersService,
+        private _goalsService: GoalsService,
         private router: Router) { }
 
     ngOnInit() {

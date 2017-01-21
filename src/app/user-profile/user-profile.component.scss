@@ -1,9 +1,44 @@
 .user-profile-container {
-  max-width: 30em;
-  margin: auto;
-  padding: 1em;
+  width: 100%;
+  height: 100%;
   .user-profile-header {
-    margin: 3em;
     text-align: center;
+    width: 100%;
+    background: url(http://i.imgur.com/m6SQFJQh.jpg);
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    transition: transform .3s ease-in-out;
+    color: white;
+    text-shadow: 0 0 0.01em black;
+    .profile-details {
+      padding: 5em 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, .3), rgba(0, 0, 0, .6));
+    }
+  }
+  .user-goals {
+    margin-top: 3em;
+    .user-goals-list {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: stretch;
+      align-content: stretch;
+      .user-goal {
+        background: grey;
+        margin: 0.5em;
+        align-self: stretch;
+        overflow: hidden;
+        text-align: center;
+        transition: .3s ease-in-out;
+        position: relative;
+        width: 100%;
+        max-width: 35em;
+        min-height: 25em;
+        flex-grow: 1;
+        border-radius: .2em;
+      }
+    }
   }
 }

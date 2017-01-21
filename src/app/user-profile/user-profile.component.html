@@ -1,5 +1,18 @@
 <div [@userProfileState]="userProfileState" class="user-profile-container">
   <div class="user-profile-header">
-    <h1>{{ currentUser.email }}</h1>
+    <div class="profile-details">
+      <h1>{{ currentUser.profile.name | capitalizeWord }}</h1>
+      <h2>{{ currentUser.profile.location }}</h2>
+      <h3>{{ currentUser.email }}</h3>
+      <h4>Joined on {{ currentUser.profile.joined | date: longDate }}</h4>
+    </div>
+  </div>
+  <div class="user-goals">
+    <ul class="user-goals-list">
+      <li class="user-goal">asdasd</li>
+      <li *ngFor="let userGoal of userGoals; let i = index" class="user-goal">
+        {{ userGoal }}
+      </li>
+    </ul>
   </div>
 </div>

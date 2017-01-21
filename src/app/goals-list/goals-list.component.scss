@@ -1,9 +1,10 @@
 .goals-container {
+  margin-top: 5em;
   .goals-header {
-    margin: 3em;
     text-align: center;
   }
   .goals-list {
+    margin-top: 5em !important;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -12,8 +13,16 @@
     align-items: stretch;
     align-content: stretch;
     position: absolute;
+    .goal:nth-child(3n-2) {
+      background: url("http://i.imgur.com/m6SQFJQh.jpg");
+      background-size: cover !important;
+      background-repeat: no-repeat !important;
+      background-position: center center !important;
+      transition: transform .3s ease-in-out;
+      color: white;
+      text-shadow: 0 0 0.01em black;
+    }
     .goal {
-      background: grey;
       margin: 0.5em;
       align-self: stretch;
       overflow: hidden;
@@ -28,7 +37,7 @@
       // &:nth-child(even) {
       //     height: 25em;
       // }
-      cursor: pointer;    
+      cursor: pointer;
       .goal-container {
         // position: absolute;
         margin: 5em auto;

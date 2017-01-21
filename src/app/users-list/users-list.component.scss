@@ -1,10 +1,11 @@
 .users-container {
+  margin-top: 5em;
   .users-header {
-    margin: 3em;
     text-align: center;
   }
   .users-list {
     width: 100%;
+    margin-top: 5em !important;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -13,6 +14,7 @@
     align-content: stretch;
     position: absolute;
     .user {
+      // box-shadow: 0 0 0.5em black;
       background: grey;
       margin: 0.5em;
       align-self: stretch;
@@ -28,7 +30,19 @@
       // &:nth-child(even) {
       //     height: 25em;
       // }
-      cursor: pointer;    
+      cursor: pointer;
+      .user-img {
+        width: 10em;
+        height: 10em;
+        margin: auto;
+        // box-shadow: 0 0 0.5em black;
+        background: url(http://i.imgur.com/VuATFjyh.jpg);
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+        background-position: center center !important;
+        transition: transform .3s ease-in-out;
+        border-radius: 5em;
+      }
       .user-container {
         // position: absolute;
         margin: 5em auto;

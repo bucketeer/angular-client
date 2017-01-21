@@ -19,6 +19,12 @@ export class GoalsService {
             .catch(this.handeError);
     }
 
+    getUserGoals() {
+        return this._http.get(`${AppConfig.server}/api/goals/`, Options)
+            .map((res) => { return res.json() })
+            .catch(this.handeError);
+    }
+
     handeError(err: any) {
         console.error(err);
         return Observable.throw(err.json().error || 'Server error');
