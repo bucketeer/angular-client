@@ -38,9 +38,8 @@
       border-radius: .2em;
       // &:nth-child(even) {
       //     height: 25em;
-      // }
-      cursor: pointer;
-      .add-goal-btn {
+      // }      
+      .goal-btn {
         font-size: 3em;
         position: absolute;
         right: 0;
@@ -48,8 +47,11 @@
         padding: 0 0.3em;
         color: inherit;
         transition: .3s ease-in-out;
-        &:hover {
-          transform: scale(1.1);
+        .add-goal-btn {
+          cursor: pointer;
+          &:hover {
+            transform: scale(1.1);
+          }
         }
       }
       .goal-container {

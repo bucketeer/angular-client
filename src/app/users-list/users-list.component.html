@@ -11,10 +11,7 @@
           <h1>{{ user.profile.name | capitalizeWord }}</h1>
           <h6>{{ user.id }}</h6>
           <h4 class="index">{{ i+1 }}/{{ pageinateOptions.totalResults }}</h4>
-          <div>Goals</div>
-          <div *ngFor="let goal of user.goals">
-            {{ goal }}
-          </div>
+          <h2> {{ user.goals.length }} Goal(s)</h2>          
           <br>
           <div>{{ user.profile.location }}</div>
           <div>Joined {{ user.profile.joined | date: longDate }}!</div>

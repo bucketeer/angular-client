@@ -4,17 +4,18 @@
     <h4>Currently {{ pageinateOptions.totalResults }} In Progress!</h4>
   </div>
   <ul class="goals-list">
-    <li *ngFor="let goal of goals; let i = index" class="goal" [@goalState]="goalState">
-      <span class="add-goal-btn" (click)="addGoalToUser(goal)" *ngIf="_userService.currentUser._id">
-        <i class="fa fa-plus-circle"></i>
+    <li *ngFor="let goal of goals; let i = index" class="goal" [@goalState]="goalState">            
+      <span class="goal-btn" *ngIf="currentUser._id">
+        <i class="fa fa-check-circle-o" *ngIf="currentUser.publicGoals.indexOf(goal._id) > 0"></i>
+        <i class="add-goal-btn fa fa-plus-circle" (click)="addGoalToUser(goal)" *ngIf="currentUser.publicGoals.indexOf(goal._id) < 0"></i>
       </span>
       <div class="goal-container">
         <h1>{{ goal.name }}</h1>
-        <h6>{{ goal.id }}</h6>
+        <h6>{{ goal._id }}</h6>
         <h4 class="index">{{ i+1 }}/{{ pageinateOptions.totalResults }}</h4>
         <p>{{ goal.description }}</p>
         <div>{{ goal.location }}</div>
-        <div *ngIf="goal.completed.status"> Completed on {{ goal.completed.date | date: longDate }}!</div>
+        <div *ngIf="goal.completed.status">Completed on {{ goal.completed.date | date: longDate }}!</div>
       </div>
     </li>
   </ul>

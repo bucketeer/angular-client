@@ -4,5 +4,6 @@ export interface IUser {
     profile: any,
     roles: any,
     goals: any,
+    publicGoals: any,
     token: string
 }

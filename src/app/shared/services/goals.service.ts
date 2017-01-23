@@ -14,8 +14,8 @@ export class GoalsService {
 
     constructor(private _http: Http) { }
 
-    getGoals() {
-        return this._http.get(`${AppConfig.server}/api/goals`, Options)
+    getCommunityGoals() {
+        return this._http.get(`${AppConfig.server}/api/goals?isPrivate=false`, Options)
             .map((res) => { return res.json() })
             .catch(this.handeError);
     }
@@ -32,15 +32,16 @@ export class GoalsService {
             .catch(this.handeError);
     }
 
-    createGoal(goal: IGoal) {
-        let newGoal: IGoal = {
+    createUserGoal(goal) {
+        let newGoal: IGoal = {            
             name: goal.name,
             description: goal.description,
             hashtags: goal.hashtags,
             category: goal.category,
-            isPrivate: goal.isPrivate,
+            isPrivate: true,
             location: goal.location,
             media: goal.media,
+            publicGoalId: goal._id,
             completed: {
                 status: false
             }

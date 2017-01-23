@@ -32,13 +32,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
             this.userProfileState = 'loaded';
         }, 800);
 
-        this.currentUser = this._userService.currentUser;
+        this.currentUser = this._userService.getCurrentUser();
         
         this._userService.getUser(this.currentUser._id)
             .subscribe((data) => {
                 if (!data.success) {
                   console.error(data.errMsg);  
                 } 
+
                 this.currentUser = data.users[0];                    
                 this.getUserGoals();
             });
@@ -50,14 +51,13 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
     getUserGoals() {
         let user = this._userService.getCurrentUser();
-        
+
         if (!(user && user.goals.length > 0)) {
             return;
         }
 
         this._goalsService.getGoalsByIds(user.goals)
-            .subscribe((data) => {
-                console.log(JSON.stringify(data));                
+            .subscribe((data) => {                                
                 this.userGoals = data.goals;
                 this.pageinateOptions = {
                     totalResults: data.totalResults,

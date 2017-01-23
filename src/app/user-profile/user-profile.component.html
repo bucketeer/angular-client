@@ -9,7 +9,7 @@
   </div>
   <div class="user-goals">
     <div class="user-goals-header">
-      <h2>You have {{ userGoals.length ? userGoals.length : 'no'}} item(s) on your List</h2>
+      <h2>You have {{ currentUser.goals.length ? currentUser.goals.length : 'no'}} item(s) on your List</h2>
     </div>
     <ul class="user-goals-list">      
       <li *ngFor="let goal of userGoals; let i = index" class="user-goal">

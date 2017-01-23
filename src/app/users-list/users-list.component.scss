@@ -15,7 +15,8 @@
     position: absolute;
     .user {
       // box-shadow: 0 0 0.5em black;
-      background: grey;
+      border: 1px solid rgba(0, 0, 0, .1);    
+      // background: grey;
       margin: 0.5em;
       align-self: stretch;
       overflow: hidden;

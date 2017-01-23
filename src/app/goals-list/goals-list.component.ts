@@ -17,6 +17,7 @@ export class GoalsListComponent implements OnInit, OnDestroy {
   goalState: string = 'loading';
   goals: IGoal[] = [];
   pageinateOptions: any = {};
+  currentUser = {};
 
   constructor(
     private _goalService: GoalsService,
@@ -26,7 +27,10 @@ export class GoalsListComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.goalsListState = 'loaded';
     }, 800);
-    this._goalService.getGoals()
+
+    this.currentUser = this._userService.getCurrentUser();
+
+    this._goalService.getCommunityGoals()
       .subscribe((data) => {
         this.goals = data.goals;
         this.pageinateOptions = {
@@ -44,14 +48,15 @@ export class GoalsListComponent implements OnInit, OnDestroy {
   }
 
   addGoalToUser(goal) {
-    this._goalService.createGoal(goal)
+    this._goalService.createUserGoal(goal)
       .subscribe((data) => {
         if (!data.success) {
           console.error(data.errMsg);
           return;
         }
-        this._userService.addUserGoalById(data.goal._id)
-          .subscribe((data) => {            
+
+        this._userService.addUserGoalById(data.goal._id, goal._id)
+          .subscribe((data) => {
             if (!data.success) {
               console.error(data.errMsg);
               return;
@@ -59,5 +64,6 @@ export class GoalsListComponent implements OnInit, OnDestroy {
           });
       });
 
+    this.currentUser = this._userService.updateCurrentUser();
   }
 }
