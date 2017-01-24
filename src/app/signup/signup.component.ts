@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   signupErrors = [];
 
   constructor(
-    private _userService: UsersService,
+    private _usersService: UsersService,
     private router: Router,
     private _formBuilder: FormBuilder) {
     this.userForm = _formBuilder.group({
@@ -49,7 +49,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   submitForm(formData: any): void {
     this.isSigningUp = true
     let user = this.mapFormData(formData);
-    this._userService.signup(user)
+    this._usersService.signup(user)
       .subscribe((data) => {
         this.isSigningUp = false;
         if (!data.success) {

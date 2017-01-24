@@ -66,14 +66,42 @@
     border-bottom: transparent .01em solid;
     color: inherit;
     transition: .3s ease-in-out;
-    &:focus {
-      outline: none;
-      width: 15em;
-      border-bottom: rgba(0, 0, 0, .1) .01em solid;
-    }
+  }
+  input.selected {
+    outline: none;
+    width: 15em;
+    border-bottom: rgba(0, 0, 0, .1) .01em solid;
   }
   i {
     font-size: 1.2em;
+  }
+  .search-results {
+    margin-left: 2.5em;
+    position: absolute;
+    font-size: .6em;
+    padding-top: 1em;
+    // background: rgba(236, 234, 234, 0.85);
+    padding: .5em;
+    width: 20em;
+    li {
+      border-bottom: .1em solid rgba(0, 0, 0, .1);
+      padding-top: .01em;
+      padding-bottom: .5em;
+      text-align: center;
+      .result-name {
+        transition: .3s ease-in-out;
+        font-size: 1.5em;
+      }
+      &:hover .result-name {
+        letter-spacing: .1em;
+      }
+    }
+    li:nth-child(odd) {
+      background: rgba(236, 234, 234, 0.85);
+    }
+    li:nth-child(even) {
+      background: rgba(236, 234, 234, .9);
+    }
   }
 }
 

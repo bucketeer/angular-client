@@ -17,13 +17,13 @@ export class UsersListComponent implements OnInit, OnDestroy {
   users: IUser[] = [];
   pageinateOptions: any = {};
 
-  constructor(private userService: UsersService) { }
+  constructor(private _usersService: UsersService) { }
 
   ngOnInit() {
     setTimeout(() => {
       this.usersListState = 'loaded';
     }, 800);
-    this.userService.getUsers()
+    this._usersService.getUsers()
       .subscribe((data) => {
         this.users = data.users;
         this.pageinateOptions = {

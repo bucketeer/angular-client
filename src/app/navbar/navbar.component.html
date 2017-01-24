@@ -13,7 +13,19 @@
       <ul class="nav navbar-nav navbar-left">
         <li class="search-bar">
           <i class="fa fa-search"></i>
-          <input type="text" placeholder="Search for goals" value="{{ queryString }}">
+          <input type="text" placeholder="Goal or Hashtags" [(ngModel)]="queryString" (keyup)="search()" (click)="handleShowSearch()" [ngClass]="{selected: searchSelected}">
+          <div class="search-results" *ngIf="searchResults.length > 0" [@searchResultState]="searchResultState">
+            <ul>
+              <li *ngFor="let result of searchResults" (click)="selectGoal(result)">
+                <div class="result-name">{{ result.name }}</div>
+                <div>
+                  <span *ngFor="let hashtag of result.hashtags">
+                      #{{ hashtag }} &nbsp;
+                    </span>
+                </div>
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -27,23 +39,23 @@
             <li><a routerLink="/users">Users</a></li>
             <li><a routerLink="/goals">Goals</a></li>
           </ul>
-          </li>
-          <li *ngIf="!currentUser.email">
-            <a routerLink="/signup">Sign Up <i class="fa fa-fw fa-user-plus"></i></a>
-          </li>
-          <li *ngIf="!currentUser.email">
-            <a routerLink="/signin">Sign In <i class="fa fa-fw fa-sign-in"></i></a>
-          </li>
-          <li *ngIf="!!currentUser.email">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+        </li>
+        <li *ngIf="!currentUser.email">
+          <a routerLink="/signup">Sign Up <i class="fa fa-fw fa-user-plus"></i></a>
+        </li>
+        <li *ngIf="!currentUser.email">
+          <a routerLink="/signin">Sign In <i class="fa fa-fw fa-sign-in"></i></a>
+        </li>
+        <li *ngIf="!!currentUser.email">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
               {{ currentUser.profile.username }} <i class="fa fa-fw fa-user-circle-o"></i>
-            </a>            
-            <ul class="dropdown-menu">             
-              <li><a routerLink="/user-profile">My Profile</a></li>
-              <!--<li><a routerLink="/user-goals">My Goals</a></li>-->
-              <li><a (click)="signout()">Sign Out</a>
-            </ul>
-            </li>
+            </a>
+          <ul class="dropdown-menu">
+            <li><a routerLink="/user-profile">My Profile</a></li>
+            <!--<li><a routerLink="/user-goals">My Goals</a></li>-->
+            <li><a (click)="signout()">Sign Out</a>
+          </ul>
+          </li>
       </ul>
     </div>
   </div>

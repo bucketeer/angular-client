@@ -23,7 +23,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     pageinateOptions: any = {};
 
     constructor(
-        private _userService: UsersService,
+        private _usersService: UsersService,
         private _goalsService: GoalsService,
         private router: Router) { }
 
@@ -32,9 +32,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
             this.userProfileState = 'loaded';
         }, 800);
 
-        this.currentUser = this._userService.getCurrentUser();
+        this.currentUser = this._usersService.getCurrentUser();
         
-        this._userService.getUser(this.currentUser._id)
+        this._usersService.getUser(this.currentUser._id)
             .subscribe((data) => {
                 if (!data.success) {
                   console.error(data.errMsg);  
@@ -50,7 +50,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     }
 
     getUserGoals() {
-        let user = this._userService.getCurrentUser();
+        let user = this._usersService.getCurrentUser();
 
         if (!(user && user.goals.length > 0)) {
             return;

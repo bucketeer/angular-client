@@ -20,17 +20,17 @@ export class GoalsListComponent implements OnInit, OnDestroy {
   currentUser = {};
 
   constructor(
-    private _goalService: GoalsService,
-    private _userService: UsersService) { }
+    private _goalsService: GoalsService,
+    private _usersService: UsersService) { }
 
   ngOnInit() {
     setTimeout(() => {
       this.goalsListState = 'loaded';
     }, 800);
 
-    this.currentUser = this._userService.getCurrentUser();
+    this.currentUser = this._usersService.getCurrentUser();
 
-    this._goalService.getCommunityGoals()
+    this._goalsService.getCommunityGoals()
       .subscribe((data) => {
         this.goals = data.goals;
         this.pageinateOptions = {
@@ -48,14 +48,14 @@ export class GoalsListComponent implements OnInit, OnDestroy {
   }
 
   addGoalToUser(goal) {
-    this._goalService.createUserGoal(goal)
+    this._goalsService.createUserGoal(goal)
       .subscribe((data) => {
         if (!data.success) {
           console.error(data.errMsg);
           return;
         }
 
-        this._userService.addUserGoalById(data.goal._id, goal._id)
+        this._usersService.addUserGoalById(data.goal._id, goal._id)
           .subscribe((data) => {
             if (!data.success) {
               console.error(data.errMsg);
@@ -64,6 +64,6 @@ export class GoalsListComponent implements OnInit, OnDestroy {
           });
       });
 
-    this.currentUser = this._userService.updateCurrentUser();
+    this.currentUser = this._usersService.updateCurrentUser();
   }
 }

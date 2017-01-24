@@ -5,5 +5,10 @@ export const NavbarAnimations: any = [
 	  state('loading', style({transform: 'translateY(-100%)'})),
 	  state('loaded', style({transform: 'translateY(0)'})),
 	  transition('loading <=> loaded', animate('1s ease-in-out'))
+	]),
+	trigger('searchResultState', [
+	  state('empty', style({display: 'none'})),
+	  state('results', style({display: 'block'})),
+	  transition('empty <=> results', animate('.5s ease-in-out'))
 	])
 ];

@@ -55,7 +55,7 @@ ul {
     list-style-type: none;    
 }
 
-li, a {    
+li, a, input {    
     text-decoration: none;
     outline: none;
     color: initial;

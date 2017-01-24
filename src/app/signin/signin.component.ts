@@ -21,7 +21,7 @@ export class SigninComponent implements OnInit, OnDestroy {
   signinErrors = [];
 
   constructor(
-    private _userService: UsersService,
+    private _usersService: UsersService,
     private router: Router,
     private _formBuilder: FormBuilder) {
     this.userForm = _formBuilder.group({
@@ -42,7 +42,7 @@ export class SigninComponent implements OnInit, OnDestroy {
 
   submitForm(user: any): void {
     this.isSigningIn = true
-    this._userService.signin(user)
+    this._usersService.signin(user)
       .subscribe((data) => {
         this.isSigningIn = false;
         if (!data.success) {

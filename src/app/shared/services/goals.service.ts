@@ -11,11 +11,18 @@ import { AppConfig } from '../config/app.config';
 
 @Injectable()
 export class GoalsService {
+    currentUser: IGoal = JSON.parse(localStorage.getItem("b_goal") || '{}');
 
     constructor(private _http: Http) { }
 
     getCommunityGoals() {
         return this._http.get(`${AppConfig.server}/api/goals?isPrivate=false`, Options)
+            .map((res) => { return res.json() })
+            .catch(this.handeError);
+    }
+
+    searchGoals(searchText) {
+        return this._http.post(`${AppConfig.server}/api/goals/search?isPrivate=false&pageSize=10`, { searchText: searchText }, Options)
             .map((res) => { return res.json() })
             .catch(this.handeError);
     }
@@ -26,14 +33,14 @@ export class GoalsService {
         for (let id of goalIds) {
             query = `${query}_ids=${id}&`;
         }
-        
+
         return this._http.get(`${AppConfig.server}/api/goals?${query}`, Options)
             .map((res) => { return res.json() })
             .catch(this.handeError);
     }
 
     createUserGoal(goal) {
-        let newGoal: IGoal = {            
+        let newGoal: IGoal = {
             name: goal.name,
             description: goal.description,
             hashtags: goal.hashtags,
