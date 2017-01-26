@@ -11,10 +11,23 @@ import { AppConfig } from '../config/app.config';
 
 @Injectable()
 export class UsersService {
-
     currentUser: IUser = JSON.parse(localStorage.getItem("b_user") || '{}');
 
     constructor(private _http: Http) { }
+
+    isAdmin() {
+        if (!this.currentUser || !this.currentUser.roles) {
+            return false
+        }
+        return this.currentUser.roles.indexOf('admin') > -1;
+    }
+
+    isOwnedByUser(goal) {
+        if (!goal || this.currentUser || this.currentUser.publicGoals) {
+            return false;
+        }
+        return this.currentUser.publicGoals.indexOf(goal._id) > -1;
+    }
 
     getCurrentUser() {
         this.currentUser = JSON.parse(localStorage.getItem("b_user") || '{}');
@@ -46,12 +59,26 @@ export class UsersService {
         return this._http.get(`${AppConfig.server}/api/users?_id=${id}`, Options)
             .map((res) => {
                 let data = res.json();
-                
+
                 if (data.success) {
                     this.currentUser = data.users[0];
                     localStorage.setItem("b_user", JSON.stringify(this.currentUser || {}));
                 }
                 return data;
+            })
+            .catch(this.handeError);
+    }
+
+    addGoalById(goalId) {
+        if (this.currentUser.goals.indexOf(goalId) < 0) {
+            this.currentUser.goals.push(goalId);
+        }
+
+        this.updateCurrentUser();
+
+        return this._http.put(`${AppConfig.server}/api/users/${this.currentUser._id}`, { user: this.currentUser }, Options)
+            .map((res) => {
+                return res.json();
             })
             .catch(this.handeError);
     }
@@ -66,7 +93,7 @@ export class UsersService {
         }
 
         this.updateCurrentUser();
-        
+
         return this._http.put(`${AppConfig.server}/api/users/${this.currentUser._id}`, { user: this.currentUser }, Options)
             .map((res) => {
                 return res.json();

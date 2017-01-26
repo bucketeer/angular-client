@@ -22,7 +22,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   constructor(
     private _usersService: UsersService,
-    private router: Router,
+    private _router: Router,
     private _formBuilder: FormBuilder) {
     this.userForm = _formBuilder.group({
       'name': [null, Validators.required],
@@ -66,7 +66,7 @@ export class SignupComponent implements OnInit, OnDestroy {
           return;
         }
         this.userForm.reset();
-        this.router.navigate(['home']);
+        this._router.navigate(['home']);
         window.location.reload();
       },
       (err) => {

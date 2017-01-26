@@ -1,0 +1,46 @@
+<div [@goalState]="goalState" class="goal-container" *ngIf="currentGoal._id">
+  <div class="goal-header">
+    <div class="goal-details" *ngIf="!isEditable()">
+      <h3>{{ currentGoal._id }}</h3>
+      <h1>{{ currentGoal.name }}</h1>
+      <h2>{{ currentGoal.description }}</h2>
+      <h4>{{ currentGoal.location }}</h4>
+    </div>
+    <div class="goal-details-editable" *ngIf="isEditable()">
+      <h3>{{ currentGoal.name }}</h3>
+      <form (ngSubmit)="submitForm()">
+        <div class="form-group">
+          <label>Image:</label>
+          <input type="file" placeholder="Image" name="img" [(ngModel)]="currentGoal.media.img">
+        </div>
+        <div class="form-group">
+          <label>Name:</label>
+          <input class="form-control" name="name" type="text" placeholder="Name" [(ngModel)]="currentGoal.name">
+        </div>
+        <div class="form-group">
+          <label>Description:</label>
+          <input class="form-control" name="description" type="text" placeholder="Description" [(ngModel)]="currentGoal.description">
+        </div>
+        <div class="form-group">
+          <label>Location:</label>
+          <input class="form-control" name="location" type="text" placeholder="Location" [(ngModel)]="currentGoal.location">
+        </div>
+        <div class="form-group">
+          <label>Category:</label>
+          <input class="form-control" name="category" type="text" placeholder="Category" [(ngModel)]="currentGoal.category">
+        </div>
+        <div class="form-group">
+          <label>Hashtags (Comma-Delimited):</label>
+          <input class="form-control" name="hashtags" type="text" placeholder="Hashtags" [(ngModel)]="currentGoal.hashtags">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default" [disabled]="false">Submit</button>
+        </div>
+        <div *ngFor="let error of goalErrors" class="alert alert-danger">{{ error }}</div>
+      </form>
+    </div>
+  </div>
+</div>
+<h1 class="empty-goal" *ngIf="!currentGoal._id">
+  No Goal Selected
+</h1>

@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
 import { GoalsListAnimations } from './goals-list.animations';
@@ -21,7 +22,8 @@ export class GoalsListComponent implements OnInit, OnDestroy {
 
   constructor(
     private _goalsService: GoalsService,
-    private _usersService: UsersService) { }
+    private _usersService: UsersService,
+    private _router: Router) { }
 
   ngOnInit() {
     setTimeout(() => {
@@ -47,6 +49,28 @@ export class GoalsListComponent implements OnInit, OnDestroy {
     this.goalsListState = 'destroyed';
   }
 
+  isAdmin() {
+    return this._usersService.isAdmin();
+  }
+
+  deleteGoal(index) {
+    this._goalsService.deleteGoal(this.goals[index])
+      .subscribe((data) => {
+        if (!data.success) {
+          console.error(data.errMsg);
+          return;
+        }
+
+        this.goals.splice(index, 1);
+        window.location.reload();
+      });
+  }
+
+  selectGoal(goal) {
+    localStorage.setItem("b_goal", JSON.stringify(goal));
+    this._router.navigate(['goal']);
+  }
+
   addGoalToUser(goal) {
     this._goalsService.createUserGoal(goal)
       .subscribe((data) => {
@@ -65,5 +89,9 @@ export class GoalsListComponent implements OnInit, OnDestroy {
       });
 
     this.currentUser = this._usersService.updateCurrentUser();
+  }
+
+  isOwnedByUser(goal) {
+    return this._usersService.isOwnedByUser(goal);
   }
 }

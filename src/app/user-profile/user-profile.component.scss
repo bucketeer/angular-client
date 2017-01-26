@@ -21,6 +21,17 @@
     text-align: center;
     .user-goals-header {
       padding: 0 0 3em 0;
+      max-width: 25em;
+      margin: auto;
+      .add-goal-btn {
+        text-align: center;
+        font-size: 3em;
+        cursor: pointer;
+        transition: .3s ease-in-out;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
     }
     .user-goals-list {
       display: flex;
@@ -42,14 +53,14 @@
       .user-goal {
         margin: 0.5em;
         cursor: pointer;
-        border: 1px solid rgba(0, 0, 0, .1);                  
+        border: 1px solid rgba(0, 0, 0, .1);
         align-self: stretch;
         overflow: hidden;
         text-align: center;
         transition: .3s ease-in-out;
         position: relative;
         width: 100%;
-        max-width: 35em;        
+        max-width: 35em;
         flex-grow: 1;
         border-radius: .2em;
         .goal-container {
@@ -59,6 +70,25 @@
             top: 0;
             right: 0;
             padding: 0 .5em;
+          }
+          .control-list {
+            font-size: 2em;
+            padding: 0.1em 0.3em !important;
+            li {
+              color: inherit;
+              display: inline;
+            }
+            .btn {
+              cursor: pointer;
+              opacity: .8;
+              transition: .3s ease-in-out;
+              color: inherit;
+              &:hover {
+                color: inherit;
+                opacity: 1;
+                transform: scale(1.1);
+              }
+            }
           }
         }
       }

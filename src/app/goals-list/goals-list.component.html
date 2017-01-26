@@ -2,13 +2,18 @@
   <div class="goals-header">
     <h1>Community Goals</h1>
     <h4>Currently {{ pageinateOptions.totalResults }} In Progress!</h4>
+    <div *ngIf="currentUser._id">
+      <br>
+      <h3>Create Your Own!</h3>
+      <div class="add-goal-btn">
+        <a routerLink="/new-goal">
+          <i class="fa fa-plus-circle"></i>
+        </a>
+      </div>
+    </div>
   </div>
   <ul class="goals-list">
-    <li *ngFor="let goal of goals; let i = index" class="goal" [@goalState]="goalState">            
-      <span class="goal-btn" *ngIf="currentUser._id">
-        <i class="fa fa-check-circle-o" *ngIf="currentUser.publicGoals.indexOf(goal._id) > 0"></i>
-        <i class="add-goal-btn fa fa-plus-circle" (click)="addGoalToUser(goal)" *ngIf="currentUser.publicGoals.indexOf(goal._id) < 0"></i>
-      </span>
+    <li *ngFor="let goal of goals; let i = index" class="goal" [@goalState]="goalState">
       <div class="goal-container">
         <h1>{{ goal.name }}</h1>
         <h6>{{ goal._id }}</h6>
@@ -16,6 +21,20 @@
         <p>{{ goal.description }}</p>
         <div>{{ goal.location }}</div>
         <div *ngIf="goal.completed.status">Completed on {{ goal.completed.date | date: longDate }}!</div>
+        <ul class="control-list" *ngIf="currentUser._id">
+          <li *ngIf="isAdmin()" (click)="selectGoal(goal)">
+            <i class="btn fa fa-pencil"></i>
+          </li>
+          <li *ngIf="isAdmin()" (click)="deleteGoal(i)">
+            <i class="btn fa fa-trash-o"></i>
+          </li>
+          <li>
+            <i class="fa fa-check-circle-o" *ngIf="currentUser.publicGoals.indexOf(goal._id) > -1"></i>
+          </li>
+          <li>
+            <i class="btn fa fa-plus-circle" (click)="addGoalToUser(goal)" *ngIf="currentUser.publicGoals.indexOf(goal._id) < 0"></i>
+          </li>
+        </ul>
       </div>
     </li>
   </ul>

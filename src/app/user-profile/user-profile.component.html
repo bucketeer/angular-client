@@ -9,17 +9,32 @@
   </div>
   <div class="user-goals">
     <div class="user-goals-header">
-      <h2>You have {{ currentUser.goals.length ? currentUser.goals.length : 'no'}} item(s) on your List</h2>
+      <h2>You have {{ currentUser.goals.length ? currentUser.goals.length : 'no'}} item(s)</h2>
+      <h3>Add a New Goal!</h3>
+      <div class="add-goal-btn">
+        <a routerLink="/new-goal">
+          <i class="fa fa-plus-circle"></i>
+        </a>
+      </div>
     </div>
-    <ul class="user-goals-list">      
+    <ul class="user-goals-list">
       <li *ngFor="let goal of userGoals; let i = index" class="user-goal">
         <div class="goal-container">
           <h1>{{ goal.name }}</h1>
-          <h6>{{ goal.id }}</h6>
+          <h6>{{ goal._id }}</h6>
           <h4 class="index">{{ i+1 }}/{{ pageinateOptions.totalResults }}</h4>
           <p>{{ goal.description }}</p>
           <div>{{ goal.location }}</div>
+          <div>Create on {{ goal.createdAt | date: longDate }}</div>
           <div *ngIf="goal.completed.status"> Completed on {{ goal.completed.date | date: longDate }}!</div>
+          <ul class="control-list" *ngIf="currentUser._id">
+            <li (click)="selectGoal(goal)">
+              <i class="btn fa fa-pencil"></i>
+            </li>
+            <li (click)="deleteGoal(i)">
+              <i class="btn fa fa-trash-o"></i>
+            </li>
+          </ul>
         </div>
       </li>
     </ul>

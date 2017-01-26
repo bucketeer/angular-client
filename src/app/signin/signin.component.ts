@@ -22,7 +22,7 @@ export class SigninComponent implements OnInit, OnDestroy {
 
   constructor(
     private _usersService: UsersService,
-    private router: Router,
+    private _router: Router,
     private _formBuilder: FormBuilder) {
     this.userForm = _formBuilder.group({
       'email': [null, Validators.required],
@@ -50,7 +50,7 @@ export class SigninComponent implements OnInit, OnDestroy {
           return;
         }
         this.userForm.reset();
-        this.router.navigate(['user-profile']);
+        this._router.navigate(['user-profile']);
         window.location.reload();
       },
       (err) => {

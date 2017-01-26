@@ -25,7 +25,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     constructor(
         private _usersService: UsersService,
         private _goalsService: GoalsService,
-        private router: Router) { }
+        private _router: Router) { }
 
     ngOnInit() {
         setTimeout(() => {
@@ -33,14 +33,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         }, 800);
 
         this.currentUser = this._usersService.getCurrentUser();
-        
+
         this._usersService.getUser(this.currentUser._id)
             .subscribe((data) => {
                 if (!data.success) {
-                  console.error(data.errMsg);  
-                } 
+                    console.error(data.errMsg);
+                }
 
-                this.currentUser = data.users[0];                    
+                this.currentUser = data.users[0];
                 this.getUserGoals();
             });
     }
@@ -57,7 +57,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         }
 
         this._goalsService.getGoalsByIds(user.goals)
-            .subscribe((data) => {                                
+            .subscribe((data) => {
                 this.userGoals = data.goals;
                 this.pageinateOptions = {
                     totalResults: data.totalResults,
@@ -66,6 +66,24 @@ export class UserProfileComponent implements OnInit, OnDestroy {
                     previousPage: data.previousPage,
                     page: data.page
                 }
+            });
+    }
+
+    selectGoal(goal) {
+        localStorage.setItem("b_goal", JSON.stringify(goal));
+        this._router.navigate(['goal']);
+    }
+
+    deleteGoal(index) {
+        this._goalsService.deleteGoal(this.userGoals[index])
+            .subscribe((data) => {
+                if (!data.success) {
+                    console.error(data.errMsg);
+                    return;
+                }
+
+                this.userGoals.splice(index, 1);
+                window.location.reload();
             });
     }
 }

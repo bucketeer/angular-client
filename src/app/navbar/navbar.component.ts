@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit {
   navState: string = 'loading';
   searchResultState: string = 'empty';
   showNavBg: boolean = true;
+  bannerState: string = '';
   currentUser: any = {};
   searchSelected: boolean = false;
   searchResults: any = [];
@@ -23,22 +24,30 @@ export class NavbarComponent implements OnInit {
   constructor(
     private _usersService: UsersService,
     private _goalsService: GoalsService,
-    private router: Router) { }
+    private _router: Router) { }
 
   ngOnInit() {
     setTimeout(() => {
       this.navState = 'loaded';
     }, 500);
     this.currentUser = this._usersService.currentUser;
+    if (this.currentUser._id) {
+      this.bannerState = "signedin";
+    }
   }
 
   signout() {
     this._usersService.signout()
       .subscribe((data) => {
-        this.router.navigate(['home']);
+        this._router.navigate(['home']);
         window.location.reload();
       });
   }
+
+  signup() {
+    this.bannerState = "clicked";
+    this._router.navigate(['signup']);
+  } Î
 
   search() {
     if (!this.queryString || (this.queryString && this.queryString.length < 3)) {
@@ -61,8 +70,10 @@ export class NavbarComponent implements OnInit {
   }
 
   selectGoal(goal) {
+    this.searchResults = [];
+    this.queryString = '';
     localStorage.setItem("b_goal", JSON.stringify(goal));
-    this.router.navigate(['goal']);
+    this._router.navigate(['goal']);
   }
 
   handleShowSearch() {

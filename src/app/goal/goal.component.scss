@@ -1,0 +1,41 @@
+.goal-container {
+  width: 100%;
+  height: 100%;
+  .goal-header {
+    text-align: center;
+    width: 100%;
+    background: url(http://i.imgur.com/m6SQFJQh.jpg);
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    transition: transform .3s ease-in-out;
+    color: white;
+    text-shadow: 0 0 0.01em black;
+    .goal-details {
+      padding: 5em 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, .3), rgba(0, 0, 0, .6));
+    }
+    .goal-details-editable {
+      padding: 5em 0;
+      max-width: 30em;
+      margin: auto;
+      form {
+        text-align: left;
+        background: rgba(0, 0, 0, .3);
+        border-radius: .2em;
+        padding: 1em;
+        input {
+          background: transparent;
+          border: none;
+          border-bottom: .1em solid white;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.empty-goal {
+  margin-top: 2em;
+  text-align: center;
+}

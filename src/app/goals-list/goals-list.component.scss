@@ -2,6 +2,15 @@
   margin-top: 5em;
   .goals-header {
     text-align: center;
+    .add-goal-btn {
+      text-align: center;
+      font-size: 3em;
+      cursor: pointer;
+      transition: .3s ease-in-out;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
   }
   .goals-list {
     margin-top: 5em !important;
@@ -39,17 +48,22 @@
       // &:nth-child(even) {
       //     height: 25em;
       // }      
-      .goal-btn {
+      .control-list {
         font-size: 3em;
-        position: absolute;
-        right: 0;
-        bottom: 0;
+        padding: 0.1em 0.3em !important;
         padding: .05em 0.3em;
-        color: inherit;
-        transition: .3s ease-in-out;
-        .add-goal-btn {
+        li {
+          display: inline;
+          color: inherit;
+        }
+        .btn {
           cursor: pointer;
+          opacity: .7;
+          transition: .3s ease-in-out;
+          color: inherit;
           &:hover {
+            color: inherit;
+            opacity: 1;
             transform: scale(1.1);
           }
         }
