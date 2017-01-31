@@ -4,7 +4,7 @@ let headers = new Headers();
 headers.append('Accept', 'application/json');
 headers.append('Content-Type', 'application/json');
 if (localStorage.getItem('b_user')) {
-    headers.append('b_token', JSON.parse(localStorage.getItem('b_user') || '{}').b_token);
+    headers.append('jwt_token', JSON.parse(localStorage.getItem('b_user') || '{}').token);
 }
 
 export const Options = new RequestOptions({ headers: headers });
