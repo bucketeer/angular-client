@@ -1,3 +1,3 @@
 export const AppConfig: any = {
-  server: 'http://localhost:4400'
+  server: process.env.BACKEND || 'http://localhost:4400'
 };
