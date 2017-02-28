@@ -88,7 +88,7 @@ export class GoalsListComponent implements OnInit, OnDestroy {
           });
       });
 
-    this.currentUser = this._usersService.updateCurrentUser();
+    this._usersService.updateCurrentUser();
   }
 
   isOwnedByUser(goal) {

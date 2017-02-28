@@ -4,6 +4,7 @@ import { Http, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
+import { Subject } from 'rxjs/Subject';
 
 import { IUser } from '../interfaces/user.interface';
 import { Options } from '../config/request.options';
@@ -12,6 +13,7 @@ import { AppConfig } from '../config/app.config';
 @Injectable()
 export class UsersService {
     currentUser: IUser = JSON.parse(localStorage.getItem("b_user") || '{}');
+    currentUser$ = new Subject<IUser>();
 
     constructor(private _http: Http) { }
 
@@ -44,7 +46,7 @@ export class UsersService {
 
     updateCurrentUser() {
         localStorage.setItem("b_user", JSON.stringify(this.currentUser || {}));
-        return this.currentUser || {};
+         this.currentUser$.next( this.currentUser );
     }
 
     getUsers() {

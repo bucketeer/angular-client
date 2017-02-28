@@ -1,67 +1,67 @@
 <div class="banner" [@bannerState]="bannerState">Join to start making your list. &nbsp;
-  <a (click)="signup()">Join Now!</a>
+    <a (click)="signup()">Join Now!</a>
 </div>
 <nav class="navbar _navbar-transparent navbar-default _navbar-fixed-top" [@navState]="navState">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-main-collapse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-main-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-      <a class="navbar-brand" routerLink="/"><i class="fa fa-check-square"></i></a>
-    </div>
-    <div class="collapse navbar-collapse navbar-main-collapse">
-      <ul class="nav navbar-nav navbar-left">
-        <li class="search-bar">
-          <i class="fa fa-search"></i>
-          <input type="text" placeholder="Goal or Hashtags" [(ngModel)]="queryString" (keyup)="search()" (click)="handleShowSearch()"
-            [ngClass]="{selected: searchSelected}">
-            <div class="search-results" *ngIf="searchResults.length > 0" [@searchResultState]="searchResultState">
-              <ul>
-                <li *ngFor="let result of searchResults" (click)="selectGoal(result)">
-                  <div class="result-name">{{ result.name }}</div>
-                  <div>
-                    <span *ngFor="let hashtag of result.hashtags">
+            <a class="navbar-brand" routerLink="/"><i class="fa fa-check-square"></i></a>
+        </div>
+        <div class="collapse navbar-collapse navbar-main-collapse">
+            <ul class="nav navbar-nav navbar-left">
+                <li class="search-bar">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Goal or Hashtags" [(ngModel)]="queryString" (keyup)="search()" (click)="handleShowSearch()" [ngClass]="{selected: searchSelected}">
+                    <div class="search-results" *ngIf="searchResults.length > 0" [@searchResultState]="searchResultState">
+                        <ul>
+                            <li *ngFor="let result of searchResults" (click)="selectGoal(result)">
+                                <div class="result-name">{{ result.name }}</div>
+                                <div>
+                                    <span *ngFor="let hashtag of result.hashtags">
                       #{{ hashtag }} &nbsp;
                     </span>
-                  </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
-              </ul>
-            </div>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="pages">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="fa fa-th"></i>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a routerLink="/about">About</a></li>
-            <li><a routerLink="/contact">Contact</a></li>
-            <li><a routerLink="/users">Users</a></li>
-            <li><a routerLink="/goals">Community Goals</a></li>
-            <li><a routerLink="/new-goal">New Goals</a></li>
-          </ul>
-        </li>
-        <li *ngIf="!currentUser.email">
-          <a routerLink="/signup">Sign Up <i class="fa fa-fw fa-user-plus"></i></a>
-        </li>
-        <li *ngIf="!currentUser.email">
-          <a routerLink="/signin">Sign In <i class="fa fa-fw fa-sign-in"></i></a>
-        </li>
-        <li *ngIf="!!currentUser.email">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-              {{ currentUser.profile.username }} <i class="fa fa-fw fa-user-circle-o"></i>
-            </a>
-          <ul class="dropdown-menu">
-            <li><a routerLink="/user-profile">My Profile</a></li>
-            <!--<li><a routerLink="/user-goals">My Goals</a></li>-->
-            <li><a (click)="signout()">Sign Out</a>
-          </ul>
-          </li>
-      </ul>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="pages">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-th"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a routerLink="/about">About</a></li>
+                        <li><a routerLink="/contact">Contact</a></li>
+                        <li><a routerLink="/users">Users</a></li>
+                        <li><a routerLink="/goals">Community Goals</a></li>
+                        <li><a routerLink="/new-goal">New Goals</a></li>
+                    </ul>
+                </li>
+                <li *ngIf="!currentUser$ || !currentUser$.email">
+                    <a routerLink="/signup">Sign Up <i class="fa fa-fw fa-user-plus"></i></a>
+                </li>
+                <li *ngIf="!currentUser$ || !currentUser$.email">
+                    <a routerLink="/signin">Sign In <i class="fa fa-fw fa-sign-in"></i></a>
+                </li>
+                <li *ngIf="currentUser$ && currentUser$.profile">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        {{ currentUser$.profile.username }}
+                        <i class="fa fa-fw fa-user-circle-o"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a routerLink="/user-profile">My Profile</a></li>
+                        <!--<li><a routerLink="/user-goals">My Goals</a></li>-->
+                        <li><a (click)="signout()">Sign Out</a>
+                    </ul>
+                    </li>
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>

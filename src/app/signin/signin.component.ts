@@ -51,7 +51,6 @@ export class SigninComponent implements OnInit, OnDestroy {
         }
         this.userForm.reset();
         this._router.navigate(['user-profile']);
-        window.location.reload();
       },
       (err) => {
         this.isSigningIn = false;

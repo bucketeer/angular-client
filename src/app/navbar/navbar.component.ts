@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
+import { IUser } from '../shared/interfaces/user.interface';
 import { NavbarAnimations } from './navbar.animations';
 import { UsersService } from '../shared/services/users.service';
 import { GoalsService } from '../shared/services/goals.service';
@@ -16,10 +20,11 @@ export class NavbarComponent implements OnInit {
   searchResultState: string = 'empty';
   showNavBg: boolean = true;
   bannerState: string = '';
-  currentUser: any = {};
   searchSelected: boolean = false;
   searchResults: any = [];
   queryString: string = '';
+  currentUser$: Observable<IUser>;
+  currentUserSubscriber: Subscription;
 
   constructor(
     private _usersService: UsersService,
@@ -30,17 +35,24 @@ export class NavbarComponent implements OnInit {
     setTimeout(() => {
       this.navState = 'loaded';
     }, 500);
-    this.currentUser = this._usersService.currentUser;
-    if (this.currentUser._id) {
+    this.currentUser$ = this._usersService.currentUser$;
+    if (this.currentUser$) {
       this.bannerState = "signedin";
     }
+    this.currentUserSubscriber = this._usersService.currentUser$.subscribe({
+      next: (_currentUser: any) => this.currentUser$ = _currentUser,
+      error: (err) => console.error('Error with the user service', err),
+      complete: () => {
+        console.log('Completed: no more new clicks');
+        this.currentUserSubscriber.unsubscribe();
+      }
+    });
   }
 
   signout() {
     this._usersService.signout()
       .subscribe((data) => {
         this._router.navigate(['home']);
-        window.location.reload();
       });
   }
 
